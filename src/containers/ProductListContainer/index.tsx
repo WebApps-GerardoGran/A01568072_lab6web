@@ -26,6 +26,16 @@ class ProductListContainer extends React.Component<{}, ProductListState> {
     )
   }
 
+  componentDidMount() {
+    ProductService.getAll()
+      .then(response => {
+        const productList = response.data;
+        console.log(productList);
+        this.setState({ productList });
+      }).catch(error => {
+        console.log(error);
+      });
+  }
 }
 
 export default ProductListContainer;
