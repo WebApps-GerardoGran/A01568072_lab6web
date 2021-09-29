@@ -14,7 +14,7 @@ const ProductList: React.FC<ProductListProps> = (props) => {
 
   return (
     <div>
-      {props.productList.map((product, index) => { <ProductCard product={product} /> })}
+      {props.productList.map((product, id) => { return (<ProductCard key={id} product={product} />) })}
     </div>
   );
 };

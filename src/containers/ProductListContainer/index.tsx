@@ -4,7 +4,7 @@ import ProductService from "../../services/ProductService";
 import Product from "../../types/Product";
 
 interface ProductListState {
-  productList: [Product];
+  productList: [{}];
 }
 
 /**
@@ -22,19 +22,30 @@ class ProductListContainer extends React.Component<{}, ProductListState> {
    */
   render() {
     return (
-      <ProductList productList={this.state.productList} />
+      <div>
+        <ProductList productList={this.state.productList} />
+      </div>
     )
   }
 
+  // componentDidMount() {}
+
   componentDidMount() {
-    ProductService.getAll()
-      .then(response => {
-        const productList = response.data;
-        console.log(productList);
-        this.setState({ productList });
-      }).catch(error => {
-        console.log(error);
-      });
+    this.retrieveproducts()
+  }
+
+  async retrieveproducts() {
+    await ProductService.getAll().then(
+      response => {
+        console.log(response)
+        const products = response.data;
+        this.setState({ productList: products });
+      }
+    ).catch(
+      error => {
+        console.log(error)
+      }
+    )
   }
 }
 
